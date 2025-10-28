@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css"/>
+        <title>Nutrical - Your Health Tracker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <h1>Nutrical</h1>
+                <ul>
+                    <li><a href="#nutrition">Nutrition</a></li>
+                    <li><a href="#calories">Calories</a></li>
+                    <li><a href="#sleep">Sleep</a></li>
+                    <li><a href="#reports">Reports</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="nutrition">
+                <h2>Nutrition Tracker</h2>
+                <div class="tracker-card">
+                    <form id="nutrition-form">
+                        <input type="text" placeholder="Food Item" required>
+                        <input type="number" placeholder="Portion (g)" required>
+                        <button type="submit">Add Food</button>
+                    </form>
+                    <div id="nutrition-stats">
+                        <div class="stat">
+                            <h3>Proteins</h3>
+                            <p>0g</p>
+                        </div>
+                        <div class="stat">
+                            <h3>Carbs</h3>
+                            <p>0g</p>
+                        </div>
+                        <div class="stat">
+                            <h3>Fats</h3>
+                            <p>0g</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="calories">
+                <h2>Calorie Counter</h2>
+                <div class="tracker-card">
+                    <div id="calorie-summary">
+                        <h3>Daily Goal: 2000 kcal</h3>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <p>Calories Consumed: <span id="calories-consumed">0</span></p>
+                        <p>Calories Remaining: <span id="calories-remaining">2000</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sleep">
+                <h2>Sleep Tracker</h2>
+                <div class="tracker-card">
+                    <form id="sleep-form">
+                        <input type="time" id="sleep-time" required>
+                        <input type="time" id="wake-time" required>
+                        <button type="submit">Log Sleep</button>
+                    </form>
+                    <div id="sleep-stats">
+                        <h3>Sleep Summary</h3>
+                        <p>Average Sleep: <span id="avg-sleep">0h 0m</span></p>
+                        <p>Sleep Quality: <span id="sleep-quality">-</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="reports">
+                <h2>Weekly Report</h2>
+                <div class="tracker-card">
+                    <div class="report-grid">
+                        <div class="report-item">
+                            <h3>Nutrition Goals</h3>
+                            <canvas id="nutrition-chart"></canvas>
+                        </div>
+                        <div class="report-item">
+                            <h3>Sleep Pattern</h3>
+                            <canvas id="sleep-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Nutrical - Your Health Companion</p>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>

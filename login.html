@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nutrical - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login-styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Nutrical</h1>
+        
+        <!-- Email Login Form -->
+        <form id="emailForm" class="login-form active">
+            <h2>Login / Register</h2>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button type="submit">Continue</button>
+        </form>
+
+        <!-- OTP Verification Form -->
+        <form id="otpForm" class="login-form">
+            <h2>Enter OTP</h2>
+            <p class="email-display"></p>
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" pattern="[0-9]" required>
+                <input type="text" maxlength="1" pattern="[0-9]" required>
+                <input type="text" maxlength="1" pattern="[0-9]" required>
+                <input type="text" maxlength="1" pattern="[0-9]" required>
+            </div>
+            <button type="submit">Verify OTP</button>
+        </form>
+
+        <!-- Password Setup Form -->
+        <form id="passwordForm" class="login-form">
+            <h2>Set Password</h2>
+            <input type="password" id="password" placeholder="Enter new password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+            <button type="submit">Create Password</button>
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
