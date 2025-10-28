@@ -1,4 +1,15 @@
-// Initialize data storage
+
+const APP_COLORS = {
+    primary: '#4CAF50',    // Green
+    secondary: '#2196F3',  // Blue
+    accent: '#FFC107',     // Amber
+    danger: '#F44336',     // Red
+    text: '#333333',       // Dark gray
+    background: '#FFFFFF', // White
+    chartColors: ['#4CAF50', '#2196F3', '#FFC107', '#F44336', '#9C27B0']
+};
+
+
 const healthData = {
     nutrition: {
         proteins: 0,
@@ -15,26 +26,41 @@ const healthData = {
     }
 };
 
+// random data for inital loading
+const dummyData = {
+    nutrition: {
+        proteins: 65,
+        carbs: 240,
+        fats: 55
+    },
+    calories: {
+        goal: 2000,
+        consumed: 1450
+    },
+    sleep: {
+        records: [8.5, 6.8, 8.0, 7.2, 6.5, 8.5, 7.8, 9.5],
+        average: 8.4
+    }
+};
+
 function checkAuth() {
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
         window.location.href = 'login.html';
     }
 }
-
-// Nutrition tracking
 document.getElementById('nutrition-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const foodItem = this.querySelector('input[type="text"]').value;
     const portion = parseFloat(this.querySelector('input[type="number"]').value);
     
-    // Simulate nutrition calculation (replace with actual API call)
+    
     const nutritionInfo = calculateNutrition(foodItem, portion);
     updateNutritionStats(nutritionInfo);
 });
 
 function calculateNutrition(food, portion) {
-    // Mock calculation - replace with actual API data
+    
     return {
         proteins: portion * 0.2,
         carbs: portion * 0.5,
@@ -55,7 +81,7 @@ function updateNutritionStats(info) {
         `${healthData.nutrition.fats.toFixed(1)}g`;
 }
 
-// Calorie tracking
+
 function updateCalories(calories) {
     healthData.calories.consumed += calories;
     const remaining = healthData.calories.goal - healthData.calories.consumed;
@@ -67,7 +93,7 @@ function updateCalories(calories) {
     document.querySelector('.progress').style.width = `${Math.min(progress, 100)}%`;
 }
 
-// Sleep tracking
+
 document.getElementById('sleep-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const sleepTime = document.getElementById('sleep-time').value;
@@ -85,7 +111,7 @@ function calculateSleepDuration(sleep, wake) {
         wakeDate.setDate(wakeDate.getDate() + 1);
     }
     
-    return (wakeDate - sleepDate) / (1000 * 60 * 60); // Convert to hours
+    return (wakeDate - sleepDate) / (1000 * 60 * 60); 
 }
 
 function updateSleepStats(duration) {
@@ -101,9 +127,9 @@ function updateSleepStats(duration) {
         duration >= 7 ? 'Good' : duration >= 6 ? 'Fair' : 'Poor';
 }
 
-// Charts initialization (using Chart.js - requires the library to be included)
+
 function initializeCharts() {
-    // Nutrition Chart
+    
     const nutritionCtx = document.getElementById('nutrition-chart').getContext('2d');
     new Chart(nutritionCtx, {
         type: 'doughnut',
@@ -111,16 +137,33 @@ function initializeCharts() {
             labels: ['Proteins', 'Carbs', 'Fats'],
             datasets: [{
                 data: [
-                    healthData.nutrition.proteins,
-                    healthData.nutrition.carbs,
-                    healthData.nutrition.fats
+                    dummyData.nutrition.proteins,
+                    dummyData.nutrition.carbs,
+                    dummyData.nutrition.fats
                 ],
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56']
+                backgroundColor: APP_COLORS.chartColors.slice(0, 3),
+                borderWidth: 2,
+                borderColor: APP_COLORS.background
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            }
         }
     });
 
-    // Sleep Chart
+    
     const sleepCtx = document.getElementById('sleep-chart').getContext('2d');
     new Chart(sleepCtx, {
         type: 'line',
@@ -128,16 +171,36 @@ function initializeCharts() {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             datasets: [{
                 label: 'Hours of Sleep',
-                data: healthData.sleep.records.slice(-7),
-                borderColor: '#36a2eb',
-                fill: false
+                data: dummyData.sleep.records,
+                borderColor: APP_COLORS.secondary,
+                backgroundColor: APP_COLORS.secondary + '20',
+                fill: true,
+                tension: 0.4,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointBackgroundColor: APP_COLORS.background
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 12
+                    max: 12,
+                    grid: {
+                        color: '#eee'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
                 }
             }
         }
@@ -162,6 +225,8 @@ function loadUserData() {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    // Populate with dummy data for demonstration
+    Object.assign(healthData, dummyData);
     loadUserData();
     initializeCharts();
     updateDisplay();

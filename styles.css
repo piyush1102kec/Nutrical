@@ -71,7 +71,7 @@ input {
 }
 
 button {
-    background-color: #3498db;
+    background-color: var(--primary-color, #4CAF50);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -79,11 +79,16 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: var(--secondary-color, #2196F3);
+}
+
 .stat {
     text-align: center;
     padding: 1rem;
     background: #f8f9fa;
     border-radius: 4px;
+    border-color: var(--secondary-color, #2196F3);
 }
 
 #nutrition-stats {
@@ -101,7 +106,7 @@ button {
 }
 
 .progress {
-    background: #2ecc71;
+    background-color: var(--primary-color, #4CAF50);
     height: 100%;
     width: 0%;
     border-radius: 10px;
@@ -118,6 +123,18 @@ footer {
     padding: 1rem;
     background: #2c3e50;
     color: white;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+#nutrition-chart, #sleep-chart {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 @media (max-width: 768px) {
